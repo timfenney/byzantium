@@ -10,6 +10,7 @@ from os.path import isdir, join
 import re
 import time
 import sys
+from .connect import get_device, set_device
 
 INPUT_PATH = '/dev/input/'
 
@@ -48,6 +49,15 @@ def detect_keyboard():
     device = InputDevice(device_path(candidate))
     return device
 
+def get_keyboard():
+    keyboard_device = get_device()
+    if keyboard_device:
+        keyboard = InputDevice(keyboard_device)
+    else:
+        print 'not keyboard: ' + keyboard
+        keyboard = detect_keyboard
+    return keyboard
+
 def event_type(key_event):
     keystate = key_event.keystate
     if keystate == KeyEvent.key_up:
@@ -72,14 +82,16 @@ def key_event_to_dict(event):
         'keycode': key_event.keycode,
         'keystate': key_event,
         'scancode': key_event.scandcode,
-        'event': key_event.event
+        'event': event_to_dict(key_event.event)
     }
 
 def raw_event_to_dict(event):
     key_event = KeyEvent(event)
     return key_event_to_dict(key_event)
 
-def listen(keyboard, emit):
+def listen(keyboard=None, emit):
+    if not keyboard:
+        keyboard = get_keyboard()
     device = InputDevice(device_path(keyboard))
     for event in device.read_loop():
         if event.type == ecodes.EV_KEY:
