@@ -10,13 +10,16 @@ NAMESPACE = 'byzantium'
 DEVICE = NAMESPACE + '-device'
 CHANNEL = NAMESPACE + '-events'
 
-connection = redis.Redis(host='192.168.1.131', password='qwertpoiuy')
+connection_ = redis.Redis(host='192.168.1.131', password='qwertpoiuy')
 
 def publish(data):
-    connection.publish(CHANNEL, data)
+    connection_.publish(CHANNEL, data)
 
 def set_device(device):
-    connection.set(DEVICE, device)
+    connection_.set(DEVICE, device)
 
 def get_device():
     return connection.get(DEVICE)
+
+def connection():
+    return connection_

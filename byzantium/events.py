@@ -13,6 +13,9 @@ import sys
 from .connect import get_device, set_device
 
 INPUT_PATH = '/dev/input/'
+KEYUP = 'keyup'
+KEYDOWN = 'keydown'
+KEYHOLD = 'keyhold'
 
 def device_path(name):
     join(INPUT_PATH, name)
@@ -61,11 +64,11 @@ def get_keyboard():
 def event_type(key_event):
     keystate = key_event.keystate
     if keystate == KeyEvent.key_up:
-        event_type = 'keyup'
+        event_type = KEYUP
     elif keystate == KeyEvent.key_down:
-        event_type = 'keydown'
+        event_type = KEYDOWN
     elif keystate == KeyEvent.key_hold:
-        event_type = 'keyhold'
+        event_type = KEYHOLD
     return keystate
 
 def event_to_dict(event):
