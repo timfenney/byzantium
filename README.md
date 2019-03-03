@@ -1,5 +1,7 @@
 # byzantium
 
+NB: _The code has not been completely imported yet, and won't work without some extra love_
+
 This project is pretty simple; the idea is to make _a normal keyboard_ dynamically reprogrammable _in real time_, through a web app running on some custom hardware (a couple of Raspberry Pis).
 
 It is fast enough to work for people who have trouble using conventional keyboards; it may be fast enough for you, but YMMV.
