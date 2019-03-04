@@ -12,6 +12,7 @@ import re
 import time
 import sys
 from connect import get_device, set_device
+from serialize import serialize
 
 INPUT_PATH = '/dev/input/'
 KEYUP = 'keyup'
@@ -99,4 +100,4 @@ def listen(emit, keyboard=None):
     device = InputDevice(device_path(keyboard))
     for event in device.read_loop():
         if event.type == ecodes.EV_KEY:
-            emit(raw_event_to_dict(event))
+            emit(serialize(raw_event_to_dict(event)))
