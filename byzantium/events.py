@@ -57,7 +57,7 @@ def get_keyboard():
     if keyboard_device:
         keyboard = InputDevice(keyboard_device)
     else:
-        print 'not keyboard: ' + keyboard
+        print 'keyboard not found :-('
         keyboard = detect_keyboard
     return keyboard
 
