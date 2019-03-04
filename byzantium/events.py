@@ -18,7 +18,7 @@ KEYDOWN = 'keydown'
 KEYHOLD = 'keyhold'
 
 def device_path(name):
-    join(INPUT_PATH, name)
+    return join(INPUT_PATH, name)
 
 def millis():
     return int(round(time.time() * 1000))
