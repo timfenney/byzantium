@@ -10,7 +10,7 @@ from os.path import isdir, join
 import re
 import time
 import sys
-from .connect import get_device, set_device
+from connect import get_device, set_device
 
 INPUT_PATH = '/dev/input/'
 KEYUP = 'keyup'
