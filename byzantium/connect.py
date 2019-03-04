@@ -18,7 +18,7 @@ def set_device(device):
     connection_.set(DEVICE, device)
 
 def get_device():
-    return connection.get(DEVICE)
+    return connection_.get(DEVICE)
 
 def connection():
     return connection_
