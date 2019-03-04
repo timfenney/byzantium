@@ -7,8 +7,9 @@ from .connect import publish
 
 def main():
     # ensure we have a keyboard
-    get_keyboard()
-    listen(keyboard=None, emit=publish)
+    # get_keyboard()
+    keyboard="/dev/input/event3"
+    listen(keyboard=keyboard, emit=publish)
     
 
 if __name__ == '__main__':

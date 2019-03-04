@@ -59,7 +59,7 @@ def get_keyboard():
     else:
         print 'keyboard not found :-('
         keyboard = detect_keyboard
-    return keyboard
+    return keyboard_device
 
 def event_type(key_event):
     keystate = key_event.keystate
