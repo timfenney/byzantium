@@ -4,6 +4,7 @@
 # data passed around the system.
 
 from evdev import InputDevice, categorize, ecodes
+from evdev.events import KeyEvent
 import os
 from os import listdir
 from os.path import isdir, join
