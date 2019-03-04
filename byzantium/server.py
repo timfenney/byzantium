@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is a placeholder for the server logic
-from .connect import connection
+from . import connect
 from .serialize import deserialize
 from .events import KEYDOWN, KEYHOLD, KEYUP
 
