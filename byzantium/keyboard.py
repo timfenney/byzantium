@@ -110,7 +110,7 @@ class Reporter(object):
         with open(self._device, 'wb') as f:
             f.write(report)
 
-class KeyBoard(object):
+class Keyboard(object):
     '''This is a keyboard which is controlled programatically, and which writes HID reports.'''
     def __init__(self, state_machine, formatter, reporter):
         '''Set attributes for collaborators.'''
