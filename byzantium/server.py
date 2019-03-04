@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is a placeholder for the server logic
+import time
 from .connect import connection
 from .serialize import deserialize
 from .events import KEYDOWN, KEYHOLD, KEYUP
@@ -20,9 +21,12 @@ def main():
     keyboard = build_keyboard(DEVICE)
 
     while True:
+        print 'looping again!'
+        time.sleep(1000)
         for message in p.listen():
             message_dict = deserialize(message[DATA])
             key = message_obj[CODE]
+            print 'message: ' + message[DATA]
             if message_obj[TYPE] == KEYDOWN:
                 keyboard.keydown(key)
             elif message_obj[TYPE] == KEYUP:
