@@ -92,7 +92,7 @@ def raw_event_to_dict(event):
     key_event = KeyEvent(event)
     return key_event_to_dict(key_event)
 
-def listen(keyboard=None, emit):
+def listen(emit, keyboard=None):
     if not keyboard:
         keyboard = get_keyboard()
     device = InputDevice(device_path(keyboard))
