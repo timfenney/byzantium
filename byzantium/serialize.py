@@ -6,7 +6,6 @@
 import json
 
 def serialize(data):
-    import pdb; pdb.set_trace()
     return json.dumps(data)
 
 def deserialize(serialized):
