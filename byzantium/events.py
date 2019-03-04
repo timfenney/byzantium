@@ -85,7 +85,7 @@ def key_event_to_dict(event):
         'type': event_type(event),
         'keycode': event.keycode,
         'keystate': event,
-        'scancode': event.scandcode,
+        'scancode': event.scancode,
         'event': event_to_dict(event.event)
     }
 
