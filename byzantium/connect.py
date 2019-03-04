@@ -2,7 +2,6 @@
 #
 # This file provides the ability to consume or emit.
 from . import serialize
-from . import events
 import redis
 
 # fixme: remove hard-coded configuration
