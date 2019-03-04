@@ -82,11 +82,11 @@ def event_to_dict(event):
 
 def key_event_to_dict(event):
     return {
-        'type': event_type(key_event),
-        'keycode': key_event.keycode,
-        'keystate': key_event,
-        'scancode': key_event.scandcode,
-        'event': event_to_dict(key_event.event)
+        'type': event_type(event),
+        'keycode': event.keycode,
+        'keystate': event,
+        'scancode': event.scandcode,
+        'event': event_to_dict(event.event)
     }
 
 def raw_event_to_dict(event):
