@@ -97,7 +97,7 @@ class ReportFormatter(object):
                 + str(chr(0))
                 + (self.format_non_modifiers(state_machine.non_modifiers)))
 
-class DebugReporter(object):
+class DebugFormatter(object):
     def format(self, state_machine):
         return {
             'modifiers': state_machine.modifiers,
