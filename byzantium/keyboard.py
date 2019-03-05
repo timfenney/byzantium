@@ -93,9 +93,9 @@ class ReportFormatter(object):
 
     def format(self, state_machine):
         '''Return the formatted report.'''
-        return (self.render_modifiers(state_machine.modifiers)
+        return (self.format_modifiers(state_machine.modifiers)
                 + chr(0)
-                + self.render_non_modifiers(state_machine.non_modifiers))
+                + self.format_non_modifiers(state_machine.non_modifiers))
 
 class Reporter(object):
     '''This is responsible only for writing the report to the relevant device file.
