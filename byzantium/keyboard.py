@@ -97,6 +97,13 @@ class ReportFormatter(object):
                 + str(chr(0))
                 + (self.format_non_modifiers(state_machine.non_modifiers)))
 
+class DebugReporter(object):
+    def format(self, state_machine):
+        return {
+            'modifiers': state_machine.modifiers,
+            'non_modifiers': state_machine.non_modifiers
+        }
+    
 class Reporter(object):
     '''This is responsible only for writing the report to the relevant device file.
        The write needs to be flushed immediately. Also, the file may be opened for
@@ -141,6 +148,7 @@ class Keyboard(object):
 def build_keyboard(device):
     '''This function will create the object graph, requiring only a device file such as `/dev/input/event3`.'''
     return Keyboard(state_machine=StateMachine(),
-                    formatter=ReportFormatter(),
+                    #formatter=ReportFormatter(),
                     #reporter=Reporter(device))
+                    formatter=DebugFormatter(),
                     reporter=PrintReporter())
