@@ -71,7 +71,7 @@ def event_type(key_event):
         event_type = KEYDOWN
     elif keystate == KeyEvent.key_hold:
         event_type = KEYHOLD
-    return keystate
+    return event_type
 
 def event_to_dict(event):
     return {

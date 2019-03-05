@@ -24,9 +24,6 @@ def main():
 
     while True:
         for message in p.listen():
-            print 'looping again!'
-            #time.sleep(1000)
-
             message_dict = deserialize(message[DATA])
             key = message_dict[CODE]
             print 'message: ' + message[DATA]
