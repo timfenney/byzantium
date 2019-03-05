@@ -2,7 +2,7 @@
 #
 # This file is a placeholder for the server logic
 import time
-from .connect import connection
+from .connect import connection, NAMESPACE
 from .serialize import deserialize
 from .events import KEYDOWN, KEYHOLD, KEYUP
 from .keyboard import build_keyboard
@@ -12,11 +12,12 @@ TYPE = 'type'
 NULL_CHAR = chr(0)
 CODE = 'scancode'
 DEVICE = '/dev/hidg0'
+PATTERN = NAMESPACE + '-*'
 
 def main():
     # fixme: redis details leaking into server.py
     p = connection().pubsub(ignore_subscribe_messages=True)
-    p.subscribe()
+    p.psubscribe(PATTERN)
 
     keyboard = build_keyboard(DEVICE)
 
