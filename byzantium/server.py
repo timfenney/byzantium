@@ -17,6 +17,7 @@ PATTERN = NAMESPACE + '-*'
 def main():
     # fixme: redis details leaking into server.py
     p = connection().pubsub(ignore_subscribe_messages=True)
+    print 'subscribing to pattern: ' + PATTERN
     p.psubscribe(PATTERN)
 
     keyboard = build_keyboard(DEVICE)
