@@ -110,6 +110,13 @@ class Reporter(object):
         with open(self._device, 'wb') as f:
             f.write(report)
 
+class PrintReporter(object):
+    '''Just for debugging :-)'''
+    def __init__(self, device):
+        self._device = device
+    def write(self, report):
+        print report
+            
 class Keyboard(object):
     '''This is a keyboard which is controlled programatically, and which writes HID reports.'''
     def __init__(self, state_machine, formatter, reporter):
@@ -137,4 +144,5 @@ def build_keyboard(device):
     '''This function will create the object graph, requiring only a device file such as `/dev/input/event3`.'''
     return Keyboard(state_machine=StateMachine(),
                     formatter=ReportFormatter(),
-                    reporter=Reporter(device))
+                    #reporter=Reporter(device))
+                    reporter=PrintReporter())
