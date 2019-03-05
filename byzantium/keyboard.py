@@ -121,12 +121,12 @@ class Keyboard(object):
     def keydown(self, key):
         '''Dispatch to the state machine for changes, then report.'''
         self._state_machine.key_down(key)
-        self.report()
+        self._report()
 
     def keyup(self, key):
         '''Dispatch to the state machine for changes, then report.'''
         self._state_machine.key_up(key)
-        self.report()
+        self._report()
 
     def _report(self):
         '''Dispatch the formatted report.'''
