@@ -112,8 +112,6 @@ class Reporter(object):
 
 class PrintReporter(object):
     '''Just for debugging :-)'''
-    def __init__(self, device):
-        self._device = device
     def write(self, report):
         print report
             
