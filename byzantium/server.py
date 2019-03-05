@@ -23,9 +23,10 @@ def main():
     keyboard = build_keyboard(DEVICE)
 
     while True:
-        print 'looping again!'
-        time.sleep(1000)
         for message in p.listen():
+            print 'looping again!'
+            time.sleep(1000)
+
             message_dict = deserialize(message[DATA])
             key = message_obj[CODE]
             print 'message: ' + message[DATA]
