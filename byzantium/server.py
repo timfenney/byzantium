@@ -28,13 +28,13 @@ def main():
             #time.sleep(1000)
 
             message_dict = deserialize(message[DATA])
-            key = message_obj[CODE]
+            key = message_dict[CODE]
             print 'message: ' + message[DATA]
-            if message_obj[TYPE] == KEYDOWN:
+            if message_dict[TYPE] == KEYDOWN:
                 keyboard.keydown(key)
-            elif message_obj[TYPE] == KEYUP:
+            elif message_dict[TYPE] == KEYUP:
                 keyboard.keyup(key)
-            elif message_obj[TYPE] == KEYHOLD:
+            elif message_dict[TYPE] == KEYHOLD:
                 print 'holding!'
 
 if __name__ == '__main__':
