@@ -93,7 +93,7 @@ class StateMachine(object):
             index = BITS_FOR_MODIFIER_KEYCODES[key]
             self._modifiers[index] = True
         else:
-            translated = translator.translate(key)
+            translated = self._translator.translate(key)
             if len(self._non_modifiers) < MAX_KEYS:
                 self._non_modifiers.append(translated)
 
@@ -105,7 +105,7 @@ class StateMachine(object):
         else:
             # This might raise, in the case that we have pressed more keys than MAX_KEYS.
             try:
-                translated = translator.translate(key)
+                translated = self._translator.translate(key)
                 self._non_modifiers.remove(translated)
             except:
                 pass
