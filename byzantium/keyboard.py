@@ -27,6 +27,9 @@ NUM_MODIFIERS  = 8
 
 MAX_KEYS = 6 # no more than these can be pressed
 
+# also note, these should not be translated.
+# fixme: this is mapping evdev scancodes to hid report codes, I need to map evdev keycode strings to
+# the same report codes
 # This dict allows us to detect modifiers, so they can be handled differently in reports.
 MODIFIERS = {
     29:  KEY_LEFTCTRL,
@@ -37,6 +40,11 @@ MODIFIERS = {
     126: KEY_RIGHTMETA,
     54:  KEY_RIGHTSHIFT,
     97:  KEY_RIGHTCTRL
+}
+
+CODES_FOR_EVDEV_CODES = {
+    # e.g. something like: 'KEY_LEFT_CTRL': KEY_LEFTCTRL
+    
 }
 
 CODES_BY_KEYCODE = {
