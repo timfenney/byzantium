@@ -13,7 +13,6 @@ ALL = NAMESPACE + '-*'
 connection = redis.Redis(host='192.168.1.131', password='qwertpoiuy')
 pubsub = connection.pubsub(ignore_subscribe_messages=True)
 
-
 def publish(data):
     connection.publish(TYPING, data)
 

@@ -39,6 +39,10 @@ MODIFIERS = {
     97:  KEY_RIGHTCTRL
 }
 
+CODES_BY_KEYCODE = {
+    'KEY_A': 4
+}
+
 class StateMachine(object):
     '''This is a state machine for producing HID keyboard reports. The protocol has
        inherent limitations, such as only 6 non-modifier keys may be pressed at a time.
@@ -69,6 +73,13 @@ class StateMachine(object):
                 self.non_modifiers.remove(key)
             except:
                 pass
+
+class Translator(object):
+    def translate(self, keycode):
+        '''Translate the evdev keycode, e.g. 'KEY_A', into a USB report code, e.g. 0x04.
+           Cf. https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf,
+           specifically sections 0x07 Keyboard/Keypad Page, and 0x0c, Consumer Page.'''
+        return CODES_BY_KEYCODE[keycode]
 
 class ReportFormatter(object):
     '''This class is responsibile for formatting StateMachine data for HID reports.'''
@@ -124,21 +135,27 @@ class PrintReporter(object):
             
 class Keyboard(object):
     '''This is a keyboard which is controlled programatically, and which writes HID reports.'''
-    def __init__(self, state_machine, formatter, reporter):
+    def __init__(self, state_machine, formatter, reporter, translator):
         '''Set attributes for collaborators.'''
         self._state_machine = state_machine
+        self._translator = translator
         self._formatter = formatter
         self._reporter = reporter
         
     def keydown(self, key):
         '''Dispatch to the state machine for changes, then report.'''
-        self._state_machine.key_down(key)
+        translated = self._translator.translate(key)
+        self._state_machine.key_down(translated)
         self._report()
 
     def keyup(self, key):
         '''Dispatch to the state machine for changes, then report.'''
-        self._state_machine.key_up(key)
+        translated = self._translator.translate(key)
+        self._state_machine.key_up(translated)
         self._report()
+
+    def hold(self, key):
+        pass
 
     def _report(self):
         '''Dispatch the formatted report.'''
@@ -148,12 +165,14 @@ class Keyboard(object):
 def build_debug_keyboard(device=None):
     '''This function will create the object graph. For compatibility it takes an unused device file argument.'''
     return Keyboard(state_machine=StateMachine(),
+                    translator=Translator(),
                     formatter=DebugFormatter(),
                     reporter=PrintReporter())
 
 def build_keyboard(device):
     '''This function will create the object graph, requiring only a device file such as `/dev/input/event3`.'''
     return Keyboard(state_machine=StateMachine(),
+                    translator=Translator(),
                     formatter=ReportFormatter(),
                     reporter=Reporter(device))
 

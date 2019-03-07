@@ -29,7 +29,8 @@ def main():
             elif message_dict[TYPE] == KEYUP:
                 keyboard.keyup(key)
             elif message_dict[TYPE] == KEYHOLD:
-                print 'holding!'
+                keyboard.hold(key)
+
 
 if __name__ == '__main__':
     main()
