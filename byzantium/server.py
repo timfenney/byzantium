@@ -10,7 +10,7 @@ from .keyboard import build_keyboard, build_debug_keyboard
 DATA = 'data'
 TYPE = 'type'
 NULL_CHAR = chr(0)
-CODE = 'scancode'
+CODE = 'keycode'
 DEVICE = '/dev/hidg0'
 PATTERN = NAMESPACE + '-*'
 
