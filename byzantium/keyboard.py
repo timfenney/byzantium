@@ -79,8 +79,8 @@ class StateMachine(object):
     
     def __init__(self, translator=None):
         '''Set attributes for modelling the state.'''
-        self._modifiers = [False] * NUM_MODIFIERS
-        self._non_modifiers = []
+        self.modifiers = [False] * NUM_MODIFIERS
+        self.non_modifiers = []
         if translator:
             self._translator = translator
         else:
@@ -91,22 +91,22 @@ class StateMachine(object):
         '''Press the key. If it is a mod, set the flag, otherwise add the key if it fits.'''
         if key in BITS_FOR_MODIFIER_KEYCODES:
             index = BITS_FOR_MODIFIER_KEYCODES[key]
-            self._modifiers[index] = True
+            self.modifiers[index] = True
         else:
             translated = self._translator.translate(key)
-            if len(self._non_modifiers) < MAX_KEYS:
-                self._non_modifiers.append(translated)
+            if len(self.non_modifiers) < MAX_KEYS:
+                self.non_modifiers.append(translated)
 
     def key_up(self, key):
         '''Release the key. If it is a mod, clear the flag, otherwise remove the key.'''
         if key in BITS_FOR_MODIFIER_KEYCODES:
             index = BITS_FOR_MODIFER_KEYCODES[key]
-            self._modifiers[index] = False
+            self.modifiers[index] = False
         else:
             # This might raise, in the case that we have pressed more keys than MAX_KEYS.
             try:
                 translated = self._translator.translate(key)
-                self._non_modifiers.remove(translated)
+                self.non_modifiers.remove(translated)
             except:
                 pass
 
