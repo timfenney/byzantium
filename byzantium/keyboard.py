@@ -69,7 +69,36 @@ CODES_FOR_KEYCODES = {
     'KEY_Y': 28,
     'KEY_Z': 29,
 
-    # ? ...
+    # others
+    KEY_TAB,
+    KEY_ENTER,
+    KEY_UP,
+    KEY_DOWN,
+    KEY_LEFT,
+    KEY_RIGHT,
+    KEY_CAPSLOCK,
+    KEY_BACKSPACE,
+    KEY_1,
+    KEY_2,
+    KEY_3,
+    KEY_4,
+    KEY_5,
+    KEY_6,
+    KEY_7,
+    KEY_8,
+    KEY_9,
+    KEY_0,
+    KEY_GRAVE,
+    KEY_VOLUMEUP,
+    KEY_VOLUMEDOWN,
+    KEY_MUTE,
+
+
+
+
+
+
+
 }
 
 class StateMachine(object):
@@ -89,26 +118,36 @@ class StateMachine(object):
 
     def key_down(self, key):
         '''Press the key. If it is a mod, set the flag, otherwise add the key if it fits.'''
-        if key in BITS_FOR_MODIFIER_KEYCODES:
-            index = BITS_FOR_MODIFIER_KEYCODES[key]
-            self.modifiers[index] = True
-        else:
-            translated = self._translator.translate(key)
-            if len(self.non_modifiers) < MAX_KEYS:
-                self.non_modifiers.append(translated)
+        self._key_up_down(key, up=False)
 
     def key_up(self, key):
         '''Release the key. If it is a mod, clear the flag, otherwise remove the key.'''
+        self._key_up_down(key, up=True)
+
+    def _key_up_down(self, key, up):
+        '''Press or release the key, based on up argument.'''
+
+        if type(key) == list:
+            key = key[1]
+        
         if key in BITS_FOR_MODIFIER_KEYCODES:
-            index = BITS_FOR_MODIFIER_KEYCODES[key]
-            self.modifiers[index] = False
+            index = self._index(key)
+            self.modifiers[index] = up ? False : True
         else:
             # This might raise, in the case that we have pressed more keys than MAX_KEYS.
             try:
                 translated = self._translator.translate(key)
-                self.non_modifiers.remove(translated)
+                if up:
+                    self.non_modifiers.remove(translated)
+                elif len(self.non_modifiers) < MAX_KEYS:
+                    self.non_modifiers.append(translated)
+                    
             except:
                 pass
+
+    def _index(self, key):
+        index = BITS_FOR_MODIFIER_KEYCODES[key]
+        return index
 
 class PassThroughTranslator(object):
     '''Pass keycodes through untranslated.'''
