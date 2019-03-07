@@ -77,7 +77,7 @@ class StateMachine(object):
        inherent limitations, such as only 6 non-modifier keys may be pressed at a time.
        Additional keys are thrown away; we could switch to LRU or something if necessary.'''
     
-    def __init__(self, translator=None)
+    def __init__(self, translator=None):
         '''Set attributes for modelling the state.'''
         self._modifiers = [False] * NUM_MODIFIERS
         self._non_modifiers = []
