@@ -70,35 +70,28 @@ CODES_FOR_KEYCODES = {
     'KEY_Z': 29,
 
     # others
-    KEY_TAB,
-    KEY_ENTER,
-    KEY_UP,
-    KEY_DOWN,
-    KEY_LEFT,
-    KEY_RIGHT,
-    KEY_CAPSLOCK,
-    KEY_BACKSPACE,
-    KEY_1,
-    KEY_2,
-    KEY_3,
-    KEY_4,
-    KEY_5,
-    KEY_6,
-    KEY_7,
-    KEY_8,
-    KEY_9,
-    KEY_0,
-    KEY_GRAVE,
-    KEY_VOLUMEUP,
-    KEY_VOLUMEDOWN,
-    KEY_MUTE,
-
-
-
-
-
-
-
+    'KEY_TAB':       43,
+    'KEY_ENTER':     40,
+    'KEY_UP':        82,
+    'KEY_DOWN':      81,
+    'KEY_LEFT':      80,
+    'KEY_RIGHT':     79,
+    'KEY_CAPSLOCK':  57,
+    'KEY_BACKSPACE': 42,
+    'KEY_1':         30,
+    'KEY_2':         31,
+    'KEY_3':         32,
+    'KEY_4':         33,
+    'KEY_5':         34,
+    'KEY_6':         35,
+    'KEY_7':         36,
+    'KEY_8':         37,
+    'KEY_9':         38,
+    'KEY_0':         39,
+    'KEY_GRAVE':     53,
+    'KEY_VOLUMEUP':  128,
+    'KEY_VOLUMEDOWN': 129,
+    'KEY_MUTE':       127
 }
 
 class StateMachine(object):
