@@ -27,27 +27,20 @@ NUM_MODIFIERS  = 8
 
 MAX_KEYS = 6 # no more than these can be pressed
 
-# also note, these should not be translated.
-# fixme: this is mapping evdev scancodes to hid report codes, I need to map evdev keycode strings to
-# the same report codes
-# This dict allows us to detect modifiers, so they can be handled differently in reports.
-MODIFIERS = {
-    29:  KEY_LEFTCTRL,
-    56:  KEY_LEFTALT,
-    125: KEY_LEFTMETA,
-    42:  KEY_LEFTSHIFT,
-    100: KEY_RIGHTALT,
-    126: KEY_RIGHTMETA,
-    54:  KEY_RIGHTSHIFT,
-    97:  KEY_RIGHTCTRL
+# The keys are evdev modifier keycodes. The values are the bit positions above.
+BITS_FOR_MODIFIER_KEYCODES = {
+    'KEY_LEFTCTRL': KEY_LEFTCTRL,
+    'KEY_LEFTCTRL': KEY_LEFTCTRL,
+    'KEY_LEFTALT': KEY_LEFTALT,
+    'KEY_LEFTMETA': KEY_LEFTMETA,
+    'KEY_LEFTSHIFT': KEY_LEFTSHIFT,
+    'KEY_RIGHTALT': KEY_RIGHTALT,
+    'KEY_RIGHTMETA': KEY_RIGHTMETA,
+    'KEY_RIGHTSHIFT': KEY_RIGHTSHIFT,
+    'KEY_RIGHTCTRL': KEY_RIGHTCTRL
 }
 
-CODES_FOR_EVDEV_CODES = {
-    # e.g. something like: 'KEY_LEFT_CTRL': KEY_LEFTCTRL
-    
-}
-
-CODES_BY_KEYCODE = {
+CODES_FOR_KEYCODES = {
     # abc's
     'KEY_A': 4,
     'KEY_B': 5,
@@ -84,38 +77,50 @@ class StateMachine(object):
        inherent limitations, such as only 6 non-modifier keys may be pressed at a time.
        Additional keys are thrown away; we could switch to LRU or something if necessary.'''
     
-    def __init__(self):
+    def __init__(self, translator=None)
         '''Set attributes for modelling the state.'''
-        self.modifiers = [False] * NUM_MODIFIERS
-        self.non_modifiers = []
+        self._modifiers = [False] * NUM_MODIFIERS
+        self._non_modifiers = []
+        if translator:
+            self._translator = translator
+        else:
+            self._translator = PassThroughTranslator()
+            
 
     def key_down(self, key):
         '''Press the key. If it is a mod, set the flag, otherwise add the key if it fits.'''
-        if key in MODIFIERS:
-            index = MODIFIERS[key]
-            self.modifiers[index] = True
+        if key in BITS_FOR_MODIFIER_KEYCODES:
+            index = BITS_FOR_MODIFIER_KEYCODES[key]
+            self._modifiers[index] = True
         else:
-            if len(self.non_modifiers) < MAX_KEYS:
-                self.non_modifiers.append(key)
+            translated = translator.translate(key)
+            if len(self._non_modifiers) < MAX_KEYS:
+                self._non_modifiers.append(translated)
 
     def key_up(self, key):
         '''Release the key. If it is a mod, clear the flag, otherwise remove the key.'''
-        if key in MODIFIERS:
-            index = MODIFIERS[key]
-            self.modifiers[index] = False
+        if key in BITS_FOR_MODIFIER_KEYCODES:
+            index = BITS_FOR_MODIFER_KEYCODES[key]
+            self._modifiers[index] = False
         else:
             # This might raise, in the case that we have pressed more keys than MAX_KEYS.
             try:
-                self.non_modifiers.remove(key)
+                translated = translator.translate(key)
+                self._non_modifiers.remove(translated)
             except:
                 pass
 
+class PassThroughTranslator(object):
+    '''Pass keycodes through untranslated.'''
+    def translate(self, keycode):
+        return keycode
+    
 class Translator(object):
     def translate(self, keycode):
         '''Translate the evdev keycode, e.g. 'KEY_A', into a USB report code, e.g. 0x04.
            Cf. https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf,
            specifically sections 0x07 Keyboard/Keypad Page, and 0x0c, Consumer Page.'''
-        return CODES_BY_KEYCODE[keycode]
+        return CODES_FOR_KEYCODES[keycode]
 
 class ReportFormatter(object):
     '''This class is responsibile for formatting StateMachine data for HID reports.'''
@@ -200,15 +205,13 @@ class Keyboard(object):
 
 def build_debug_keyboard(device=None):
     '''This function will create the object graph. For compatibility it takes an unused device file argument.'''
-    return Keyboard(state_machine=StateMachine(),
-                    translator=Translator(),
+    return Keyboard(state_machine=StateMachine(translator=Translator()),
                     formatter=DebugFormatter(),
                     reporter=PrintReporter())
 
 def build_keyboard(device):
     '''This function will create the object graph, requiring only a device file such as `/dev/input/event3`.'''
-    return Keyboard(state_machine=StateMachine(),
-                    translator=Translator(),
+    return Keyboard(state_machine=StateMachine(translator=Translator()),
                     formatter=ReportFormatter(),
                     reporter=Reporter(device))
 
