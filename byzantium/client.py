@@ -17,7 +17,7 @@ def main():
     # while the hardware should be roughly the same with other pi owners,
     # one issue is keyboards often have internal hubs, and other usb devices connected.
     # The assignment of these paths is non-deterministic.
-    keyboard="/dev/input/event3"
+    keyboard="/dev/input/event0"
     listen(keyboard=keyboard, emit=publish)
     
 
