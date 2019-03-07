@@ -176,23 +176,20 @@ class PrintReporter(object):
             
 class Keyboard(object):
     '''This is a keyboard which is controlled programatically, and which writes HID reports.'''
-    def __init__(self, state_machine, formatter, reporter, translator):
+    def __init__(self, state_machine, formatter, reporter):
         '''Set attributes for collaborators.'''
         self._state_machine = state_machine
-        self._translator = translator
         self._formatter = formatter
         self._reporter = reporter
         
     def keydown(self, key):
         '''Dispatch to the state machine for changes, then report.'''
-        translated = self._translator.translate(key)
-        self._state_machine.key_down(translated)
+        self._state_machine.key_down(key)
         self._report()
 
     def keyup(self, key):
         '''Dispatch to the state machine for changes, then report.'''
-        translated = self._translator.translate(key)
-        self._state_machine.key_up(translated)
+        self._state_machine.key_up(key)
         self._report()
 
     def hold(self, key):
