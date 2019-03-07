@@ -100,7 +100,7 @@ class StateMachine(object):
     def key_up(self, key):
         '''Release the key. If it is a mod, clear the flag, otherwise remove the key.'''
         if key in BITS_FOR_MODIFIER_KEYCODES:
-            index = BITS_FOR_MODIFER_KEYCODES[key]
+            index = BITS_FOR_MODIFIER_KEYCODES[key]
             self.modifiers[index] = False
         else:
             # This might raise, in the case that we have pressed more keys than MAX_KEYS.
