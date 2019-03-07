@@ -1,5 +1,7 @@
 # byzantium
 
+# PLEASE NOTE: RIGHT NOW I AM USING THIS REPO TO PUSH CHANGES FOR TESTING TO THE TEST HARDWARE. THE COMMIT LOGS WILL REFLECT THIS, AND WILL BE NONSENSICAL.
+
 NB: _The code has not been completely imported yet, and won't work without some extra love_
 
 This project is pretty simple; the idea is to make _a normal keyboard_ dynamically reprogrammable _in real time_, through a web app running on some custom hardware (a couple of Raspberry Pis).
