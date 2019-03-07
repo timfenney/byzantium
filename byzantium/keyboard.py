@@ -125,7 +125,8 @@ class StateMachine(object):
         
         if key in BITS_FOR_MODIFIER_KEYCODES:
             index = self._index(key)
-            self.modifiers[index] = up ? False : True
+            self.modifiers[index] = not up
+
         else:
             # This might raise, in the case that we have pressed more keys than MAX_KEYS.
             try:
