@@ -24,12 +24,15 @@ def main():
             message_dict = deserialize(message[DATA])
             key = message_dict[CODE]
             print 'message: ' + message[DATA]
-            if message_dict[TYPE] == KEYDOWN:
-                keyboard.keydown(key)
-            elif message_dict[TYPE] == KEYUP:
-                keyboard.keyup(key)
-            elif message_dict[TYPE] == KEYHOLD:
-                keyboard.hold(key)
+            try:
+                if message_dict[TYPE] == KEYDOWN:
+                    keyboard.keydown(key)
+                elif message_dict[TYPE] == KEYUP:
+                    keyboard.keyup(key)
+                elif message_dict[TYPE] == KEYHOLD:
+                    keyboard.hold(key)
+            except KeyError as e:
+                print e
 
 
 if __name__ == '__main__':
