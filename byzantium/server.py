@@ -15,8 +15,8 @@ DEVICE = '/dev/hidg0'
 PATTERN = NAMESPACE + '-*'
 
 def main():
-    # keyboard = build_keyboard(DEVICE)
-    keyboard = build_debug_keyboard(DEVICE)
+    keyboard = build_keyboard(DEVICE)
+    # keyboard = build_debug_keyboard(DEVICE)
     pubsub.psubscribe(PATTERN)
 
     while True:
