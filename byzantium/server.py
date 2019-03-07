@@ -23,7 +23,6 @@ def main():
         for message in pubsub.listen():
             message_dict = deserialize(message[DATA])
             key = message_dict[CODE]
-            print 'message: ' + message[DATA]
             try:
                 if message_dict[TYPE] == KEYDOWN:
                     keyboard.keydown(key)

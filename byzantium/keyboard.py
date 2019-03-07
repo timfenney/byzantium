@@ -91,7 +91,32 @@ CODES_FOR_KEYCODES = {
     'KEY_GRAVE':     53,
     'KEY_VOLUMEUP':  128,
     'KEY_VOLUMEDOWN': 129,
-    'KEY_MUTE':       127
+    'KEY_MUTE':       127,
+    'KEY_EQUAL':      46,
+    'KEY_MINUS':      45,
+    'KEY_NEXTSONG':  0xeb, # from https://source.android.com/devices/input/keyboard-devices#hid-keyboard-and-keypad-page-0x07
+    'KEY_PLAYPAUSE': 0xe8, # from https://source.android.com/devices/input/keyboard-devices#hid-keyboard-and-keypad-page-0x07
+    'KEY_PREVIOUSSONG': 0xea,
+    'KEY_KBDILLUMUP': 23, # wtf?
+    'KEY_KBDILLUMDOWN': 23, #wtf?
+    'KEY_DASHBOARD': 23, # wtf?
+    'KEY_SCALE': 23, #wtf?
+    'KEY_BRIGHTNESSUP': 23, #wtf?
+    'KEY_BRIGHTNESSDOWN': 23, #wtf?
+    'KEY_ESC': 41,
+    'KEY_FN': 23,
+    'KEY_F1': 58,
+    'KEY_F2': 59,
+    'KEY_F3': 60,
+    'KEY_F4': 61,
+    'KEY_F5': 62,
+    'KEY_F6': 63,
+    'KEY_F7': 64,
+    'KEY_F8': 65,
+    'KEY_F9': 66,
+    'KEY_F10': 67,
+    'KEY_F11': 68,
+    'KEY_F12': 69
 }
 
 class StateMachine(object):
