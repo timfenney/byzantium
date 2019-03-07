@@ -15,7 +15,7 @@ pubsub = connection.pubsub(ignore_subscribe_messages=True)
 
 
 def publish(data):
-    connection.publish(EVENTS, data)
+    connection.publish(TYPING, data)
 
 def set_device(device):
     connection.set(DEVICE, device)
