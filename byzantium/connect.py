@@ -6,19 +6,19 @@ import redis
 
 # fixme: remove hard-coded configuration
 NAMESPACE = 'byzantium'
-DEVICE = NAMESPACE + '-device'
-CHANNEL = NAMESPACE + '-events'
+DEVICE = NAMESPACE + '-device' # this is what to set the device to
+TYPING = NAMESPACE + '-typing'
+ALL = NAMESPACE + '-*'
 
-connection_ = redis.Redis(host='192.168.1.131', password='qwertpoiuy')
+connection = redis.Redis(host='192.168.1.131', password='qwertpoiuy')
+pubsub = connection.pubsub(ignore_subscribe_messages=True)
+
 
 def publish(data):
-    connection_.publish(CHANNEL, data)
+    connection.publish(EVENTS, data)
 
 def set_device(device):
-    connection_.set(DEVICE, device)
+    connection.set(DEVICE, device)
 
 def get_device():
-    return connection_.get(DEVICE)
-
-def connection():
-    return connection_
+    return connection.get(DEVICE)

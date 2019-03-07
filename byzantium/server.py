@@ -2,10 +2,10 @@
 #
 # This file is a placeholder for the server logic
 import time
-from .connect import connection, NAMESPACE
+from .connect import pubsub, NAMESPACE
 from .serialize import deserialize
 from .events import KEYDOWN, KEYHOLD, KEYUP
-from .keyboard import build_keyboard
+from .keyboard import build_keyboard, build_debug_keyboard
 
 DATA = 'data'
 TYPE = 'type'
@@ -15,15 +15,12 @@ DEVICE = '/dev/hidg0'
 PATTERN = NAMESPACE + '-*'
 
 def main():
-    # fixme: redis details leaking into server.py
-    p = connection().pubsub(ignore_subscribe_messages=True)
-    print 'subscribing to pattern: ' + PATTERN
-    p.psubscribe(PATTERN)
-
-    keyboard = build_keyboard(DEVICE)
+    # keyboard = build_keyboard(DEVICE)
+    keyboard = build_debug_keyboard(DEVICE)
+    pubsub.psubscribe(PATTERN)
 
     while True:
-        for message in p.listen():
+        for message in pubsub.listen():
             message_dict = deserialize(message[DATA])
             key = message_dict[CODE]
             print 'message: ' + message[DATA]

@@ -145,10 +145,15 @@ class Keyboard(object):
         report = self._formatter.format(self._state_machine)
         self._reporter.write(report)
 
+def build_debug_keyboard(device=None):
+    '''This function will create the object graph. For compatibility it takes an unused device file argument.'''
+    return Keyboard(state_machine=StateMachine(),
+                    formatter=DebugFormatter(),
+                    reporter=PrintReporter())
+
 def build_keyboard(device):
     '''This function will create the object graph, requiring only a device file such as `/dev/input/event3`.'''
     return Keyboard(state_machine=StateMachine(),
-                    #formatter=ReportFormatter(),
-                    #reporter=Reporter(device))
-                    formatter=DebugFormatter(),
-                    reporter=PrintReporter())
+                    formatter=ReportFormatter(),
+                    reporter=Reporter(device))
+
