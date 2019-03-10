@@ -9,8 +9,9 @@ NAMESPACE = 'byzantium'
 DEVICE = NAMESPACE + '-device' # this is what to set the device to
 TYPING = NAMESPACE + '-typing'
 ALL = NAMESPACE + '-*'
+HOST='localhost'
 
-connection = redis.Redis(host='192.168.1.131', password='qwertpoiuy')
+connection = redis.Redis(host=HOST, password='qwertpoiuy')
 pubsub = connection.pubsub(ignore_subscribe_messages=True)
 
 def publish(data):
