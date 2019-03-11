@@ -174,24 +174,24 @@ class ReportFormatter(object):
         for i, flag in enumerate(modifiers):
             if flag:
                 value += 2**i
-        return chr(value)
+        return unichr(value)
 
     def format_non_modifiers(self, non_modifiers):
         '''Return the non-modifier keys formatted as a string of bytes up to, and padded to MAX_KEYS length.'''
         value = ''
         for key in non_modifiers:
-            value += chr(key)
+            value += unichr(key)
         padding = MAX_KEYS - len(non_modifiers)
         if padding > 0:
             for i in range(padding):
-                value += chr(0)
+                value += unichr(0)
         return value
 
     def format(self, state_machine):
         '''Return the formatted report.'''
         return (self.format_modifiers(state_machine.modifiers)
-                + chr(0)
-                + self.format_non_modifiers(state_machine.non_modifiers))
+                + unichr(0)
+                + self.format_non_modifiers(state_machine.non_modifiers)).encode()
 
 class DebugFormatter(object):
     def format(self, state_machine):
