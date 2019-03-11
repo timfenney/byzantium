@@ -146,7 +146,12 @@ class StateMachine(object):
 
         else:
             if up:
-                self.non_modifiers.remove(key)
+                # catch in case the key isn't in the list
+                try:
+                    self.non_modifiers.remove(key)
+                except ValueError:
+                    pass
+
             elif len(self.non_modifiers) < MAX_KEYS:
                 self.non_modifiers.append(key)
                     
