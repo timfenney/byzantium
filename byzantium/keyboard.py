@@ -137,6 +137,12 @@ class StateMachine(object):
         '''Release the key. If it is a mod, clear the flag, otherwise remove the key.'''
         self._key_up_down(key, up=True)
 
+    def release_nonmodifiers(self):
+        self._non_modifiers = []
+
+    def release_modifiers(self):
+        self._modifiers = [False] * NUM_MODIFIERS
+
     def _key_up_down(self, key, up):
         '''Press or release the key, based on up argument.'''
 
@@ -253,6 +259,12 @@ class Keyboard(object):
         '''Dispatch the formatted report.'''
         report = self._formatter.format(self._state_machine)
         self._reporter.write(report)
+
+    def release_nonmodifiers(self):
+        self._state_machine.release_nonmodifiers()
+
+    def release_modifiers(self):
+        self._state_machine.release_modifiers()
 
 def build_debug_keyboard(device=None):
     '''This function will create the object graph. For compatibility it takes an unused device file argument.'''
