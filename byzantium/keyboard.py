@@ -260,7 +260,7 @@ class Keyboard(object):
 
 def build_debug_keyboard(device=None):
     '''This function will create the object graph. For compatibility it takes an unused device file argument.'''
-    return Keyboard(state_machine=StateMachine(translator=Translator()),
+    return Keyboard(state_machine=StateMachine(),
                     formatter=DebugFormatter(),
                     reporter=PrintReporter())
 
