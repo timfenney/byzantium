@@ -13,6 +13,8 @@ NULL_CHAR = chr(0)
 CODE = 'keycode'
 DEVICE = '/dev/hidg0'
 PATTERN = NAMESPACE + '-*'
+RELEASE_MODIFIERS = 'release-modifiers'
+RELEASE_NONMODIFIERS = 'release-nonmodifiers'
 
 def main():
     keyboard = build_keyboard(DEVICE)
@@ -32,6 +34,10 @@ def main():
                     keyboard.keyup(key)
                 elif message_dict[TYPE] == KEYHOLD:
                     keyboard.hold(key)
+                elif message_dict[TYPE] == RELEASE_MODIFIERS:
+                    keyboard.release_modifiers()
+                elif message_dict[TYPE] == RELEASE_NONMODIFIERS:
+                    keyboard.release_nonmodifiers()
             except KeyError as e:
                 print e
 
