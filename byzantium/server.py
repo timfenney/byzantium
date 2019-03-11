@@ -22,6 +22,7 @@ def main():
     while True:
         for message in pubsub.listen():
             message_dict = deserialize(message[DATA])
+            print message_dict
             key = message_dict[CODE]
             try:
                 if message_dict[TYPE] == KEYDOWN:
