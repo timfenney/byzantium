@@ -128,11 +128,6 @@ class StateMachine(object):
         '''Set attributes for modelling the state.'''
         self.modifiers = [False] * NUM_MODIFIERS
         self.non_modifiers = []
-        if translator:
-            self._translator = translator
-        else:
-            self._translator = PassThroughTranslator()
-            
 
     def key_down(self, key):
         '''Press the key. If it is a mod, set the flag, otherwise add the key if it fits.'''
