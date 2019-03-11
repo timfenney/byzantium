@@ -124,7 +124,7 @@ class StateMachine(object):
        inherent limitations, such as only 6 non-modifier keys may be pressed at a time.
        Additional keys are thrown away; we could switch to LRU or something if necessary.'''
     
-    def __init__(self, translator=None):
+    def __init__(self):
         '''Set attributes for modelling the state.'''
         self.modifiers = [False] * NUM_MODIFIERS
         self.non_modifiers = []
@@ -145,25 +145,16 @@ class StateMachine(object):
     def _key_up_down(self, key, up):
         '''Press or release the key, based on up argument.'''
 
-        if type(key) == list:
-            key = key[1]
-        
         if key in BITS_FOR_MODIFIER_KEYCODES:
             index = self._index(key)
             self.modifiers[index] = not up
 
         else:
-            # This might raise, in the case that we have pressed more keys than MAX_KEYS.
-            try:
-                translated = self._translator.translate(key)
-                if up:
-                    self.non_modifiers.remove(translated)
-                elif len(self.non_modifiers) < MAX_KEYS:
-                    self.non_modifiers.append(translated)
+            if up:
+                self.non_modifiers.remove(key)
+            elif len(self.non_modifiers) < MAX_KEYS:
+                self.non_modifiers.append(key)
                     
-            except:
-                pass
-
     def _index(self, key):
         index = BITS_FOR_MODIFIER_KEYCODES[key]
         return index
@@ -188,7 +179,7 @@ class ReportFormatter(object):
         for i, flag in enumerate(modifiers):
             if flag:
                 value += 2**i
-        return value
+        return chr(value)
 
     def format_non_modifiers(self, non_modifiers):
         '''Return the non-modifier keys formatted as a string of bytes up to, and padded to MAX_KEYS length.'''
@@ -203,9 +194,9 @@ class ReportFormatter(object):
 
     def format(self, state_machine):
         '''Return the formatted report.'''
-        return (str(self.format_modifiers(state_machine.modifiers))
-                + str(chr(0))
-                + (self.format_non_modifiers(state_machine.non_modifiers)))
+        return (self.format_modifiers(state_machine.modifiers)
+                + chr(0)
+                + self.format_non_modifiers(state_machine.non_modifiers))
 
 class DebugFormatter(object):
     def format(self, state_machine):
@@ -266,7 +257,6 @@ def build_debug_keyboard(device=None):
 
 def build_keyboard(device):
     '''This function will create the object graph, requiring only a device file such as `/dev/input/event3`.'''
-    return Keyboard(state_machine=StateMachine(translator=Translator()),
+    return Keyboard(state_machine=StateMachine(),
                     formatter=ReportFormatter(),
                     reporter=Reporter(device))
-
