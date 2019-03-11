@@ -38,7 +38,7 @@ def emit(event, modifiers, non_modifiers):
     key = event.key.keysym.scancode
     keypress = make_keypress(code=key, up=up)
     publish(keypress)
-    if (!up):
+    if (not up):
         if key in BITS_FOR_MODIFIERS_KEYCODES:
             modifiers[key] = True
         else:
