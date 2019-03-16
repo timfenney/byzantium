@@ -25,6 +25,11 @@ def write_default(report):
     '''Write the report to the default device.'''
     write(DEVICE, report)
 
+def read_and_empty():
+    with open(DEVICE, 'rb') as f:
+        f.read(1)        
+
+
 def main():
     pubsub.psubscribe(PATTERN)
     while True:
@@ -37,6 +42,7 @@ def main():
             print(str(keeb.as_data()))
             report = keeb.as_raw_event()
             write_default(report)
+            read_and_empty()
 
             
 if __name__ == '__main__':
