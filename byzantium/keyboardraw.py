@@ -66,6 +66,9 @@ class Keyboard(object):
             state = kwargs['state']
             self._mods = state['_mods'] + []
             self._norms = state['_norms'] + []
+    
+    def contains_norm(self, key):
+        return key in self._norms
 
     def as_data(self):
         return {

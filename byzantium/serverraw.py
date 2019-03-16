@@ -13,6 +13,7 @@ from .keyboardraw import Keyboard
 from .connect import pubsub, NAMESPACE
 from .serialize import deserialize
 import os
+from .qmkkey import KC_CAPSLOCK
 
 DEVICE = '/dev/hidg0'
 PATTERN = NAMESPACE + '-*'
@@ -42,9 +43,11 @@ def main():
             print('keyboard state:')
             keeb = Keyboard(**message_dict)
             print(str(keeb.as_data()))
+            contains_capslock = keeb.contains_norm(KC_CAPSLOCK)
             report = keeb.as_raw_event()
             write_default(report)
-            # read_and_empty()
+            if (contains_capslock):
+                read_and_empty()
 
             
 if __name__ == '__main__':
