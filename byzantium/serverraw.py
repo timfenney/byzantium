@@ -107,7 +107,7 @@ class RawBootHIDKeyboard(object):
         for r in report[1:]:
             str_report += r
         
-        return str_report.encode()
+        return str_report  # fixme : .encode() ?
 
     @classmethod
     def from_data(cls, **kwargs):
