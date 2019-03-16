@@ -15,7 +15,7 @@ connection = redis.Redis(host=HOST, password='qwertpoiuy')
 pubsub = connection.pubsub(ignore_subscribe_messages=True)
 
 def publish(data):
-    print "publishing: " + str(data)
+    print("publishing: " + str(data))
     connection.publish(TYPING, data)
 
 def set_device(device):
