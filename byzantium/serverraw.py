@@ -103,7 +103,7 @@ class RawBootHIDKeyboard(object):
         for norm in self._norms:
             report.append(chr(norm))
         
-        print("report: " + report)
+        print("report: " + str(report))
         # str_report = report[0]
         # for r in report[1:]:
         #     str_report += r
