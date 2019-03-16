@@ -27,10 +27,10 @@ def write_default(report):
     '''Write the report to the default device.'''
     write(DEVICE, report)
 
-def read_and_empty():
-    with open(DEVICE, 'rb') as f:
-        # f.tell() == os.fstat(f.fileno()).st_size
-        f.read(8)
+# def read_and_empty():
+#     with open(DEVICE, 'rb') as f:
+#         # f.tell() == os.fstat(f.fileno()).st_size
+#         f.read(8)
 
 
 def main():
@@ -47,8 +47,7 @@ def main():
             report = keeb.as_raw_event()
             write_default(report)
             if (contains_capslock):
-                read_and_empty()
-
+                pass
             
 if __name__ == '__main__':
     main()
