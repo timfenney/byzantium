@@ -94,7 +94,7 @@ class RawBootHIDKeyboard(object):
     def as_raw_event(self):
         report = []
         mods = 0
-        for mod, i in enumerate(MODIFIERS):
+        for i, mod in enumerate(MODIFIERS):
             if self._mods[i]:
                 mods += mod
         
