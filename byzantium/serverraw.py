@@ -106,8 +106,9 @@ class RawBootHIDKeyboard(object):
         str_report = report[0]
         for r in report[1:]:
             str_report += r
-        
-        return str_report  # fixme : .encode() ?
+
+        str_report = ''.join(report)
+        return str_report  # fixme : .encode() ? -> looks like no for python 2.x .
 
     @classmethod
     def from_data(cls, **kwargs):
