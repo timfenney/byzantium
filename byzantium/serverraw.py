@@ -137,7 +137,7 @@ def main():
             print('.')
             print('keyboard state:')
             keeb = RawBootHIDKeyboard(**message_dict)
-            print(str(keeb.as_json()))
+            print(str(keeb.as_data()))
             report = keeb.as_raw_event()
             write_default(report)
 
