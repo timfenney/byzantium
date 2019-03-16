@@ -121,7 +121,7 @@ PATTERN = NAMESPACE + '-*'
 
 def write(device, report):
     '''Write the report to the device file.'''
-    with open('wb') as f:
+    with open(DEVICE, 'wb') as f:
         f.write(report)
 
 def write_default(report):
