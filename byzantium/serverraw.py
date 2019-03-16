@@ -11,7 +11,8 @@ from .serialize import serialize
 import sys
 import json
 
-fp = open('/dev/hidraw', 'rb')
+# fixme, get rid of client code in server
+#fp = open('/dev/hidraw', 'rb')
 
 HID_LEFTCTRL   = 0x01
 HID_LEFTSHIFT  = 0x02
