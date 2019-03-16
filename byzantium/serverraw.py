@@ -76,6 +76,11 @@ class RawBootHIDKeyboard(object):
                 val = ord(byte)
                 if val > 0:
                     self._norms.append(val)
+        
+        elif 'state' in kwargs:
+            state = kwargs['state']
+            self._mods = state['_mods'] + []
+            self._norms = state['_norms'] + []
 
     def as_data(self):
         return {
@@ -114,12 +119,27 @@ from .serialize import deserialize
 DEVICE = '/dev/hidg0'
 PATTERN = NAMESPACE + '-*'
 
+def write(device, report):
+    '''Write the report to the device file.'''
+    with open('wb') as f:
+        f.write(report)
+
+def write_default(report):
+    '''Write the report to the default device.'''
+    write(DEVICE, report)
+
 def main():
     pubsub.psubscribe(PATTERN)
     while True:
         for message in pubsub.listen():
             message_dict = deserialize(message['data'])
             print(message_dict)
+            print()
+            print('keyboard state:')
+            keeb = RawBootHIDKeyboard(**message_dict)
+            report = keeb.as_raw_event
+            write_default(report)
+
             
 if __name__ == '__main__':
     main()
