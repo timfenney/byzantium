@@ -12,6 +12,7 @@ import sys
 from .keyboardraw import Keyboard
 from .connect import pubsub, NAMESPACE
 from .serialize import deserialize
+import os
 
 DEVICE = '/dev/hidg0'
 PATTERN = NAMESPACE + '-*'
@@ -27,7 +28,8 @@ def write_default(report):
 
 def read_and_empty():
     with open(DEVICE, 'rb') as f:
-        f.read(1)        
+        # f.tell() == os.fstat(f.fileno()).st_size
+        f.read(8)
 
 
 def main():
@@ -42,7 +44,7 @@ def main():
             print(str(keeb.as_data()))
             report = keeb.as_raw_event()
             write_default(report)
-            read_and_empty()
+            # read_and_empty()
 
             
 if __name__ == '__main__':
