@@ -134,9 +134,10 @@ def main():
         for message in pubsub.listen():
             message_dict = deserialize(message['data'])
             print(message_dict)
-            print()
+            print('.')
             print('keyboard state:')
             keeb = RawBootHIDKeyboard(**message_dict)
+            print(str(keeb.as_json()))
             report = keeb.as_raw_event()
             write_default(report)
 
