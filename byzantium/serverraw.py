@@ -103,9 +103,10 @@ class RawBootHIDKeyboard(object):
         for norm in self._norms:
             report.append(chr(norm))
         
-        str_report = report[0]
-        for r in report[1:]:
-            str_report += r
+        print("report: " + report)
+        # str_report = report[0]
+        # for r in report[1:]:
+        #     str_report += r
 
         str_report = ''.join(report)
         return str_report  # fixme : .encode() ? -> looks like no for python 2.x .
